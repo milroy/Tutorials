@@ -6,20 +6,9 @@
     - label: Flux Tutorial
       id: 'filebrowser:open-path'
       args:
-        path: 01_flux_tutorial.ipynb
+        path: ch1/01_flux_tutorial.ipynb
         icon: ./flux-icon.png
   catalog: Notebook
-
-- title: Dyad Notebook Tutorial
-  description: This is a tutorial for using Dyad
-  type: jupyterlab-commands
-  source:
-    - label: Dyad Tutorial
-      id: 'filebrowser:open-path'
-      args:
-        path: supplementary/dyad/dyad_dlio.ipynb
-        icon: ./flux-icon.png
-  catalog: Console
 
 - title: Flux Framework Portal
   description: Flux Framework portal for projects, releases, and publication.
