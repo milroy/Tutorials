@@ -35,6 +35,7 @@ RUN apt-get update \
     libopenmpi-dev \
     liblz4-dev \
     tini \
+    nodejs \
     # requirement for nbgitpuller
     git \
     && rm -rf /var/lib/apt/lists/*
@@ -47,46 +48,10 @@ RUN python3 -m pip install -r requirements.txt && \
     python3 -m pip install ipython==7.34.0  && \
     python3 -m IPython kernel install
 
-# This is code to install DYAD
-# This was added to the RADIUSS 2023 tutorials on AWS (changed to HPCIC in 2024)
-RUN git clone https://github.com/openucx/ucx.git \
-    && cd ucx \
-    && git checkout v1.13.1 \
-    && ./autogen.sh \
-    && ./configure --disable-optimizations --enable-logging --enable-debug --disable-assertions --enable-mt --disable-params-check \
-    --without-go --without-java --disable-cma --without-cuda --without-gdrcopy --without-verbs --without-knem --without-rmdacm \
-    --without-rocm --without-xpmem --without-fuse3 --without-ugni --prefix=/usr CC=$(which gcc) CXX=$(which g++) \
-    && make -j \
-    && sudo make install \
-    && cd .. \
-    && rm -rf ucx
-
-RUN git clone https://github.com/flux-framework/dyad.git \
-    && cd dyad \
-    && git checkout tutorial-riken-2024 \
-    && mkdir build \
-    && cd build \
-    && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DDYAD_ENABLE_UCX_DATA=ON .. \
-    && sudo make install -j \
-    && cd ../pydyad \
-    && python3 -m build --wheel . \
-    && pip install $(ls ./dist/*.whl | head -1) \
-    && cd ../.. \
-    && rm -rf dyad
-
 # This adds the flux-tree command, which is provided in flux-sched source
 # but not installed alongside production flux-core
 COPY ./flux-tree/* /usr/libexec/flux/cmd/
 RUN chmod +x /usr/libexec/flux/cmd/flux-tree*
-
-# Flux accounting
-RUN git clone https://github.com/flux-framework/flux-accounting && \
-    cd flux-accounting && \
-    ./autogen.sh && \
-    ./configure --prefix=/usr && \
-    make && make install
-
-RUN apt-get update && apt-get install -y nodejs && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://nodejs.org/dist/v20.15.0/node-v20.15.0-linux-x64.tar.xz && \
     apt-get update && apt-get install -y xz-utils && rm -rf /var/lib/apt/lists/* && \
@@ -115,11 +80,6 @@ COPY ./docker/flux-icon.png $HOME/flux-icon.png
 # note that previous examples are added via git volume in config.yaml
 ENV SHELL=/usr/bin/bash
 ENV FLUX_URI_RESOLVE_LOCAL=t
-# Prepend /usr/lib to LD_LIBRARY_PATH because Ubuntu Jammy comes with
-# UCX 1.12. Without this, DYAD will build (correctly) with UCX 1.13.1, but
-# it will try to run with the system install of UCX 1.12, which can cause
-# either a crash or a hang.
-ENV LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
 
 EXPOSE 8888
 ENTRYPOINT ["tini", "--"]
@@ -132,13 +92,6 @@ COPY ./docker/start.sh /start.sh
 
 RUN mkdir -p $HOME/.local/share && \
     chmod 777 $HOME/.local/share
-
-# Quick setup of flux-accounting (not working due to needing system service)
-# RUN flux start /bin/bash -c "nohup flux account create-db && flux account-service & flux account add-bank root 1" && \
-#    flux start flux account add-bank --parent-bank=root default 1 && \
-#    flux start flux account add-user --username=jovyan --bank=default && \
-#    flux start flux jobtap load mf_priority.so && \
-#    flux start flux account-update-db
 
 USER ${NB_USER}
 

@@ -1,4 +1,4 @@
-ARG JUPYTERHUB_VERSION=3.0.2
+ARG JUPYTERHUB_VERSION=4.2.0
 FROM jupyterhub/k8s-hub:$JUPYTERHUB_VERSION
 
 # Add template override directory and copy our example
