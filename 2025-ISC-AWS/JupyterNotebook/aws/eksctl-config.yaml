@@ -3,7 +3,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
   name: jupyterhub
-  region: us-east-2
+  region: eu-central-1
 
 iam:
   withOIDC: true
@@ -55,9 +55,9 @@ iam:
               - "ec2:DetachVolume"
             Resource: '*'
 
-availabilityZones: ["us-east-2a", "us-east-2b", "us-east-2c"]
+availabilityZones: ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 managedNodeGroups:
-  - name: ng-us-east-2a
+  - name: ng-eu-central-1a
     iam:
       withAddonPolicies:
         autoScaler: true
@@ -68,14 +68,14 @@ managedNodeGroups:
     maxSize: 3
     privateNetworking: true
     availabilityZones:
-      - us-east-2a
+      - eu-central-1a
     # I didn't set this, but I know it's been an issue
     # propagateASGTags: true
     tags:
       k8s.io/cluster-autoscaler/enabled: "true"
       k8s.io/cluster-autoscaler/jupyterhub: "owned"
 
-  - name: ng-us-east-2b
+  - name: ng-eu-central-1b
     iam:
       withAddonPolicies:
         autoScaler: true
@@ -86,13 +86,13 @@ managedNodeGroups:
     maxSize: 3 
     privateNetworking: true
     availabilityZones:
-      - us-east-2b
+      - eu-central-1b
     # propagateASGTags: true
     tags:
       k8s.io/cluster-autoscaler/enabled: "true"
       k8s.io/cluster-autoscaler/jupyterhub: "owned"
 
-  - name: ng-us-east-2c
+  - name: ng-eu-central-1c
     iam:
       withAddonPolicies:
         autoScaler: true
@@ -103,7 +103,7 @@ managedNodeGroups:
     maxSize: 3
     privateNetworking: true
     availabilityZones:
-      - us-east-2c
+      - eu-central-1c
     # propagateASGTags: true
     tags:
       k8s.io/cluster-autoscaler/enabled: "true"

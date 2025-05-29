@@ -3,7 +3,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
   name: jupyterhub
-  region: us-east-1
+  region: eu-central-1
 
 iam:
   withOIDC: true
@@ -34,12 +34,12 @@ iam:
             Resource: '*'
 
 availabilityZones:
-  - us-east-1a
-  - us-east-1b
-  - us-east-1c
+  - eu-central-1a
+  - eu-central-1b
+  - eu-central-1c
 
 managedNodeGroups:
-  - name: ng-us-east-1a
+  - name: ng-eu-central-1a
     instanceType: m6a.8xlarge
     volumeSize: 256
     volumeType: gp3
@@ -47,12 +47,12 @@ managedNodeGroups:
     volumeThroughput: 512
     desiredCapacity: 1
     minSize: 1
-    maxSize: 6
+    maxSize: 1
     privateNetworking: true
     availabilityZones:
-      - us-east-1a
+      - eu-central-1a
 
-  - name: ng-us-east-1b
+  - name: ng-eu-central-1b
     instanceType: m6a.8xlarge
     volumeSize: 256
     volumeType: gp3
@@ -60,12 +60,12 @@ managedNodeGroups:
     volumeThroughput: 512
     desiredCapacity: 1
     minSize: 1
-    maxSize: 6
+    maxSize: 1
     privateNetworking: true
     availabilityZones:
-      - us-east-1b
+      - eu-central-1b
 
-  - name: ng-us-east-1c
+  - name: ng-eu-central-1c
     instanceType: m6a.8xlarge
     volumeSize: 256
     volumeType: gp3
@@ -73,8 +73,8 @@ managedNodeGroups:
     volumeThroughput: 512
     desiredCapacity: 1
     minSize: 1
-    maxSize: 6
+    maxSize: 1
     privateNetworking: true
     availabilityZones:
-      - us-east-1c
+      - eu-central-1c
 

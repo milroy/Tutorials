@@ -22,9 +22,9 @@ Let's build a set of images - one spawner and one hub, and an init. You can cust
 Remember that if you just want to test locally, you can jump to the [local usage](#local-usage) section.
 
 ```bash
-docker build -t ghcr.io/flux-framework/flux-jupyter-hub:hpcic-2024 -f docker/Dockerfile.hub .
-docker build -t ghcr.io/flux-framework/flux-jupyter-spawn:hpcic-2024 -f docker/Dockerfile.spawn .
-docker build -t ghcr.io/flux-framework/flux-jupyter-init:hpcic-2024 -f docker/Dockerfile.init .
+docker build -t ghcr.io/flux-framework/flux-jupyter-hub:isc-2025 -f docker/Dockerfile.hub .
+docker build -t ghcr.io/flux-framework/flux-jupyter-spawn:isc-2025 -f docker/Dockerfile.spawn .
+docker build -t ghcr.io/flux-framework/flux-jupyter-init:isc-2025 -f docker/Dockerfile.init .
 ```
 
 Note that these are available under the flux-framework organization GitHub packages, so you shouldn't need
@@ -79,18 +79,18 @@ you should install.
 # Create an EKS cluster with autoscaling with default storage
 eksctl create cluster --config-file aws/eksctl-config.yaml
 
-# Create an EKS cluster with io1 node storage but no autoscaling, used for the HPCIC 2024 tutorial
-eksctl create cluster --config-file aws/eksctl-hpcic-tutorial-2023.yaml
+# Create an EKS cluster with io1 node storage but no autoscaling, used for the ISC 2025 tutorial
+eksctl create cluster --config-file aws/eksctl-isc-tutorial-2025.yaml
 ```
 
-You can find vanilla (manual) instructions [here](https://z2jh.jupyter.org/en/stable/kubernetes/amazon/step-zero-aws-eks.html) if you
-are interested in how it works. We emulate the logic there using eksctl. Then generate a secret token - we will add this to [config-aws.yaml](aws/config-aws.yaml) (without SSL) or [config-aws-ssl.yaml](aws/config-aws-ssl.yaml) (with SSL). When your cluster is ready, this will deploy an EBS CSI driver:
+You can find manual instructions [here](https://z2jh.jupyter.org/en/stable/kubernetes/amazon/step-zero-aws-eks.html) if you
+are interested in how the full setup works. We emulate the logic using eksctl to build the EKS cluster. Then we generate a secret token - we will add this to [config-aws.yaml](aws/config-aws.yaml) (without SSL) or [config-aws-ssl.yaml](aws/config-aws-ssl.yaml) (with SSL). When your cluster is ready, this command will deploy an EBS CSI driver:
 
 ```bash
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
 ```
 
-And install the cluster-autoscaler:
+And then install the cluster-autoscaler:
 
 ```bash
 kubectl apply -f aws/cluster-autoscaler-autodiscover.yaml 
@@ -126,10 +126,9 @@ You can see the versions available:
 helm search repo jupyterhub
 ```
 ```console
-NAME                 	CHART VERSION	APP VERSION	DESCRIPTION                                       
-bitnami/jupyterhub   	4.2.0        	4.0.2      	JupyterHub brings the power of notebooks to gro...
-jupyterhub/jupyterhub	3.0.2        	4.0.2      	Multi-user Jupyter installation                   
-jupyterhub/pebble    	1.0.1        	v2.3.1     	This Helm chart bootstraps Pebble: an ACME serv...
+NAME                 	CHART VERSION	APP VERSION	DESCRIPTION                                
+jupyterhub/jupyterhub	4.2.0        	5.3.0      	Multi-user Jupyter installation                   
+jupyterhub/pebble    	1.3.0        	2.6.0      	This Helm chart bootstraps Pebble: an ACME serv...
 ```
 
 Note that chart versions don't always coincide with software (or "app") versions. At the time of writing this,
