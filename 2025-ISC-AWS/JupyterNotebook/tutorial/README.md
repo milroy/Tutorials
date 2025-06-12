@@ -1,16 +1,29 @@
-# Welcome to the Flux tutorial dry-run!
+# Flux ISC Tutorial 2025
+## Draft Agenda
 
-## Agenda
+2:00 – 2:10 PM Welcome and Introductions – Tom Scogland, Principal Computer Scientist/Flux Research Lead, Center for Applied Scientific Computing, Lawrence Livermore National Laboratory
 
-1:05-1:15 P.M. - Overview of the tutorial and feedback
-1:15-1:40 P.M. - Chapter 1: Flux submission and start commands
-1:40-1:50 P.M. - Break
-1:50-2:15 P.M. - Chapter 2: Flux's Python API
-2:15-2:25 P.M. - Break
-2:25-2:50 P.M. - Chapter 3: Flux monitoring and utility commands
-2:50-3:00 P.M. - Fill out feedback survey
-3:00-4:00 P.M. - Hobbs's coding hour / Flux help available
+2:10 – 3:20 PM Overview of Flux: Key Features & Updates - Tom Scogland and Daniel Milroy, Principal Computer Scientist, Center for Applied Scientific Computing, Lawrence Livermore National Laboratory
 
-## Final survey
+3:20 – 3:30 PM Login to AWS Resources for Hands-On Tutorial
 
-https://forms.cloud.microsoft/g/Kv3DdyK1RG
+3:30 – 4:00 PM Demo Chapter 1: Submission Commands- Tom Scogland and Daniel Milroy
+
+4:00 – 4:30 PM Coffee Break
+
+4:30 – 4:55 PM Demo Chapter 2: Python API – William Hobbs, Software Developer, Livermore Computing Division, Lawrence Livermore National Laboratory
+
+4:55 – 5:15 PM Demo Chapter 3: Monitoring and Utility Commands – William Hobbs
+
+5:15 – 5:50 PM Flux in Different Environments – Vanessa Sochat, Principal Computer Scientist, Livermore Computing Division, Lawrence Livermore National Laboratory
+
+5:50 – 6:00 PM Wrap-Up: Engaging with the Flux Community – William Hobbs
+
+*Each block will have an associated Q&A.
+
+## Final Survey
+
+For Flux Engagement: https://converged-computing.org/community-survey-2025
+
+For ISC: https://ssl.linklings.net/conferences/isc_hpc/?page=SessionEval&id=sess173&new_year=ischpc2025
+
